@@ -11,7 +11,7 @@ public class Order {
     private Map<Product, Integer> products;
     private Boolean deliveryStatus;
 
-    public Order(LocalDate date, Map<Product, Integer> products, User user){
+    public Order(LocalDate date, Map<Product, Integer> products, User user) {
         this.id = counter;
         this.date = date;
         this.user = user;
@@ -19,7 +19,7 @@ public class Order {
         counter++;
     }
 
-    public void generateReceipt(){
+    public void generateReceipt() {
         double totalAmount = 0;
         System.out.println("Dear " + user.getName());
         System.out.println("Please find the receipt for your order No. " + id + ":");

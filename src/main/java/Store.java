@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Store implements Catalog, StockVerifier{
+public class Store implements Catalog, StockVerifier {
 
     //it's a singleton, since the program can have only one stock
     private static Store store;
@@ -40,16 +40,16 @@ public class Store implements Catalog, StockVerifier{
         return products;
     }
 
-    public void displayProducts(){
+    public void displayProducts() {
         System.out.println("The following products are available for purchase:");
-        for(Product product : products) {
+        for (Product product : products) {
             System.out.println(product);
         }
     }
 
-    public Product getProduct(int id){
+    public Product getProduct(int id) {
         for (Product product : products) {
-            if(product.getId() == id) {
+            if (product.getId() == id) {
                 return product;
             }
         }
@@ -81,7 +81,7 @@ public class Store implements Catalog, StockVerifier{
     @Override
     public int checkAvailability(Product product) throws IOException {
 
-        if(availability.containsKey(product)) {
+        if (availability.containsKey(product)) {
             return availability.get(product);
         } else {
             System.out.println("Product " + product.getName() + " " + product.getManufacturer()
@@ -94,7 +94,7 @@ public class Store implements Catalog, StockVerifier{
     //checking the entire stock's quantities
     public void checkStock() {
 
-        for(Map.Entry<Product, Integer> entry : availability.entrySet()) {
+        for (Map.Entry<Product, Integer> entry : availability.entrySet()) {
             System.out.println(entry.getKey().getName() + " "
                     + entry.getKey().getManufacturer()
                     + " --> " + entry.getValue());
@@ -102,7 +102,7 @@ public class Store implements Catalog, StockVerifier{
     }
 
     // deducting items from stock when ordered
-    public void deductFromStock(Map<Product, Integer> orderedItems){
+    public void deductFromStock(Map<Product, Integer> orderedItems) {
         for (Map.Entry<Product, Integer> entry : orderedItems.entrySet()) {
             int currentStockValue = availability.get(entry.getKey());
             availability.replace(entry.getKey(), currentStockValue, currentStockValue - entry.getValue());

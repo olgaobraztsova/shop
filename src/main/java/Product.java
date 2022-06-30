@@ -18,6 +18,7 @@ public class Product {
     public Product() {
         // Пустой конструктор
     }
+
     public Product(int id, String category, String name, String manufacturer, int price) {
         this.id = id;
         this.category = category;
