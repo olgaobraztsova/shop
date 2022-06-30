@@ -1,6 +1,4 @@
 import com.opencsv.CSVReader;
-//import com.opencsv.bean.ColumnPositionMappingStrategy;
-//import com.opencsv.bean.CsvToBeanBuilder;
 
 import com.opencsv.bean.*;
 
@@ -8,19 +6,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-public class CsvToBeanReader implements ReadData{
+public class CsvToBeanReader implements ReadData {
 
-        String[] columnMapping;
-        String fileName;
+    private String[] columnMapping;
+    private String fileName;
+    private Class tClass;
+
+    public CsvToBeanReader(String[] columnMapping, String filename, Class tClass) {
+        this.columnMapping = columnMapping;
+        this.fileName = filename;
+        this.tClass = tClass;
+    }
 
     @Override
-    public <T> List<T> parse(String[] mapping, String filename, Class<T> tClass) throws IOException {
+    public <T> List<T> parse() throws IOException {
         List<T> productsList = null;
 
-        try (CSVReader csvReader = new CSVReader(new FileReader(filename))) {
+        try (CSVReader csvReader = new CSVReader(new FileReader(this.fileName))) {
             ColumnPositionMappingStrategy<T> strategy = new ColumnPositionMappingStrategy<>();
-            strategy.setType(tClass);
-            strategy.setColumnMapping(mapping);
+            strategy.setType(this.tClass);
+            strategy.setColumnMapping(this.columnMapping);
             CsvToBean<T> csv = new CsvToBeanBuilder<T>(csvReader)
                     .withMappingStrategy(strategy)
                     .build();

@@ -34,8 +34,8 @@ public class Store implements Catalog, StockVerifier{
         String fileName = "products1.csv";
         //достаем данные из CSV файла и парсим в объект типа List
 
-        ReadData productsList = new CsvToBeanReader();
-        products = productsList.parse(columnMapping, fileName, Product.class);
+        ReadData productsList = new CsvToBeanReader(columnMapping, fileName, Product.class);
+        products = productsList.parse();
 
         return products;
     }
@@ -61,8 +61,8 @@ public class Store implements Catalog, StockVerifier{
         if (products != null) {
             String[] columnMapping = {"id", "quantity"};
             String fileName = "stock.csv";
-            ReadData quantitiesInStock = new CsvToBeanReader();
-            List<InventoryItem> list = quantitiesInStock.parse(columnMapping, fileName, InventoryItem.class);
+            ReadData quantitiesInStock = new CsvToBeanReader(columnMapping, fileName, InventoryItem.class);
+            List<InventoryItem> list = quantitiesInStock.parse();
 
             if (products.size() == list.size()) {
                 for (int i = 0; i < list.size(); i++) {
